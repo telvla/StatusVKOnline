@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        StartAppSDK.init(this, YOURAPPID, false);
+        //StartAppSDK.init(this, YOURAPPID, false);
 
         setContentView(R.layout.activity_main);
         context = this;
@@ -53,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-
 
     public void BtnSaveIdVk (View v) {
         enter_idValue = enter_id.getText().toString();

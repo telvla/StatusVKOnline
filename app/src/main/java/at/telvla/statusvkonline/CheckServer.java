@@ -52,9 +52,12 @@ public class CheckServer {
 
                             List<Info> list = response.body();
                             ser_online = list.get(1).getOnline();
+                            ser_online = ser_online.substring(0, ser_online.length() - 1);
                             ch_compare = new CompareStatus().CompareStatus(ser_online);
 
-                            if (ch_compare == false && ser_online != null && ser_online == "online") {
+                            Log.i("test_online", "---------" + ch_compare + "----" + ser_online + "----" + ser_online);
+
+                            if (ch_compare == false && ser_online.equals("Online")) {
                                 NotificationSend check = new NotificationSend();
                                 check.Send(ser_online);
                             }
@@ -67,6 +70,6 @@ public class CheckServer {
                 }
             }
         };
-        timer.schedule(timerTask, 0, 30000);
+        timer.schedule(timerTask, 0, 20000);
     }
 }
