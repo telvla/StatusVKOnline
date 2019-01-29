@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+
 import com.startapp.android.publish.adsCommon.StartAppSDK;
 
 import java.util.List;
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //StartAppSDK.init(this, YOURAPPID, false);
+        StartAppSDK.init(this, YOURAPPID, false);
 
         setContentView(R.layout.activity_main);
         context = this;

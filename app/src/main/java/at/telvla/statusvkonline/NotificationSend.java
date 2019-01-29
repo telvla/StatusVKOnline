@@ -9,6 +9,11 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.app.NotificationCompat;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import at.telvla.statusvk.R;
 
 
@@ -19,6 +24,10 @@ public class NotificationSend {
 
             context = MyApplication.getContext();
             int NOTIFICATION_ID = 234;
+
+            Date currentDate = new Date();
+            DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
+            String timeText = timeFormat.format(currentDate);
 
             NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
@@ -43,7 +52,7 @@ public class NotificationSend {
                     .setSmallIcon(R.drawable.logo_vk)
                     .setColor(Color.RED)
                     .setContentTitle("Статус изменен!")
-                    .setContentText("Статус: " + name_status);
+                    .setContentText("Статус: " + name_status + " в " + timeText);
 
             Intent resultIntent = new Intent(context, MainActivity.class);
             TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
