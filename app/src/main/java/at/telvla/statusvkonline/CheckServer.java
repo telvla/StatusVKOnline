@@ -70,6 +70,6 @@ public class CheckServer {
                 }
             }
         };
-        timer.schedule(timerTask, 0, 20000);
+        timer.schedule(timerTask, 0, 10000);
     }
 }

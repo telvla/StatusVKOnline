@@ -54,7 +54,7 @@ public class NotificationSend {
                     .setContentTitle("Статус изменен!")
                     .setContentText("Статус: " + name_status + " в " + timeText);
 
-            Intent resultIntent = new Intent(context, MainActivity.class);
+            Intent resultIntent = new Intent(context, ListTime.class);
             TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
             stackBuilder.addParentStack(MainActivity.class);
             stackBuilder.addNextIntent(resultIntent);
