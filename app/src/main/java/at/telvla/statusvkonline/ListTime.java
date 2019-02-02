@@ -8,25 +8,29 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 
+import com.startapp.android.publish.adsCommon.StartAppSDK;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import at.telvla.statusvk.R;
 
-
 public class ListTime extends AppCompatActivity {
+    String YOURAPPID = "200214407";
+    ListView listView;
+    List<String> list;
+    AdapterTime adapters;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //StartAppSDK.init(this, YOURAPPID, false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         setContentView(R.layout.activity_list_time);
 
-
-        ListView listView = (ListView)findViewById(R.id.listView);
-
-        List<String> list = new ArrayList<>();
+        listView = findViewById(R.id.listView);
+        list = new ArrayList<>();
 
         list.add("12.12.2019");
         list.add("1.12.2019");
@@ -34,20 +38,15 @@ public class ListTime extends AppCompatActivity {
         list.add("02.12.2019");
         list.add("05.12.2019");
 
-
-        AdapterTime adapters = new AdapterTime(getApplicationContext(), list);
-
+        adapters = new AdapterTime(getApplicationContext(), list);
         listView.setAdapter(adapters);
-
-
-
-
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
