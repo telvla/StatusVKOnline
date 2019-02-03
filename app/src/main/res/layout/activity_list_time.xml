@@ -11,7 +11,9 @@
         android:id="@+id/listView"
         android:transcriptMode="normal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
     </ListView>
 
     <!--<com.startapp.android.publish.ads.banner.Banner

@@ -1,9 +1,12 @@
 package at.telvla.statusvkonline;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
@@ -18,8 +21,10 @@ import at.telvla.statusvk.R;
 public class ListTime extends AppCompatActivity {
     String YOURAPPID = "200214407";
     ListView listView;
-    List<String> list;
     AdapterTime adapters;
+    Context context;
+    String file_list_time = "file_list_time";
+    String value_list_time = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,18 +32,29 @@ public class ListTime extends AppCompatActivity {
         //StartAppSDK.init(this, YOURAPPID, false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         setContentView(R.layout.activity_list_time);
 
+        context = MyApplication.getContext();
         listView = findViewById(R.id.listView);
-        list = new ArrayList<>();
 
-        list.add("12.12.2019");
-        list.add("1.12.2019");
-        list.add("11.12.2019");
-        list.add("02.12.2019");
-        list.add("05.12.2019");
+        try {
+            value_list_time = new File_RQ().File_Read(context, file_list_time);
+            if (value_list_time.equals("")) {
+                value_list_time = "";
+            }
+        } catch (Exception e) {
+            value_list_time = "";
+        }
 
-        adapters = new AdapterTime(getApplicationContext(), list);
+        List<String> aryrr = new ArrayList<>();
+        String[] mas_list_time = value_list_time.split(",");
+        int mas_list_time_count = mas_list_time.length;
+        for (int i = 0; i < mas_list_time_count; i++) {
+            aryrr.add(mas_list_time[i]);
+        }
+
+        adapters = new AdapterTime(getApplicationContext(), aryrr);
         listView.setAdapter(adapters);
     }
 
@@ -62,5 +78,4 @@ public class ListTime extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-
 }
