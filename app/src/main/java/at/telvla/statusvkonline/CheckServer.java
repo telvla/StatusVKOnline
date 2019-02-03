@@ -23,6 +23,8 @@ public class CheckServer {
     String file_name = "id_vk";
     String file_list_time = "file_list_time";
     String value_list_time = "";
+    String file_online = "file_online";
+    String get_status_file;
     String timeText;
     String get_id_file;
     String ser_online;
@@ -66,6 +68,17 @@ public class CheckServer {
                             ser_online = ser_online.substring(0, ser_online.length() - 1);
                             ch_compare = new CompareStatus().CompareStatus(ser_online);
 
+                            /*try {
+                                get_status_file = new File_RQ().File_Read(context, file_online);
+                                if (!get_status_file.equals("")) {
+                                    get_status_file = "1";
+                                } else {
+                                    get_status_file = "0";
+                                }
+                            } catch (Exception e) {
+                                get_status_file = "0";
+                            } */
+
                             Log.i("test_online", "---------" + ch_compare + "----" + ser_online + "----" + ser_online);
 
                             if (ch_compare == false && ser_online.equals("Online")) {
@@ -79,7 +92,7 @@ public class CheckServer {
                                 try {
                                     value_list_time = new File_RQ().File_Read(context, file_list_time);
                                     if (!value_list_time.equals("")) {
-                                        value_list_time += value_list_time + "," + timeText;
+                                        value_list_time += "," + timeText;
                                     } else {
                                         value_list_time = timeText;
                                     }
@@ -87,10 +100,7 @@ public class CheckServer {
                                     value_list_time = timeText;
                                 }
 
-                                Log.i("test_online", "++++++" + value_list_time);
-
                                 result_save = new File_RQ().File_Entry(context, file_list_time, value_list_time);
-
                             }
                         }
 

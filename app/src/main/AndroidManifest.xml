@@ -22,7 +22,7 @@
         android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="at.telvla.statusvkonline.ListTime">
+        <activity android:name="at.telvla.statusvkonline.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -57,7 +57,7 @@
         </receiver>
 
         <activity
-            android:name="at.telvla.statusvkonline.MainActivity"
+            android:name="at.telvla.statusvkonline.ListTime"
             android:label="@string/title_activity_list_time"
             ></activity>
     </application>
