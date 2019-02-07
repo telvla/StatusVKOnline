@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     API api;
     String YOURAPPID = "200214407";
     String check_code;
+    String file_list_time = "file_list_time";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +44,10 @@ public class MainActivity extends AppCompatActivity {
         context = this;
         startService(new Intent(this, PingService.class));
 
-        enter_id = (EditText) findViewById(R.id.enter_id);
+        enter_id = findViewById(R.id.enter_id);
         try {
+            result_save = new File_RQ().File_Entry(context, file_list_time, "-");
+
             get_id_file = new File_RQ().File_Read(context, file_name);
             if (!get_id_file.equals("")) {
                 enter_id.setText(get_id_file);
@@ -52,64 +55,68 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
             enter_id.setText("");
         }
-
     }
 
     public void BtnSaveIdVk (View v) {
-        enter_idValue = enter_id.getText().toString();
-        if (!enter_id.getText().toString().equals("")) {
 
-            CallServer = ApiClient.getClient();
-            api = CallServer.create(API.class);
+        if (new isOnline().getOnline(MyApplication.getContext()) == true) {
+            enter_idValue = enter_id.getText().toString();
+            if (!enter_id.getText().toString().equals("")) {
+                CallServer = ApiClient.getClient();
+                api = CallServer.create(API.class);
 
-            Call <List<Info>> call = api.CheckExistencePage(enter_idValue);
-            call.enqueue(new Callback <List<Info>>() {
-                @Override
-                public void onResponse(Call<List<Info>> call, Response<List<Info>> response) {
+                Call<List<Info>> call = api.CheckExistencePage(enter_idValue);
+                call.enqueue(new Callback<List<Info>>() {
+                    @Override
+                    public void onResponse(Call<List<Info>> call, Response<List<Info>> response) {
 
-                    List<Info> list = response.body();
-                    check_code = list.get(1).getCodeCheck();
+                        List<Info> list = response.body();
+                        check_code = list.get(1).getCodeCheck();
 
-                    if (check_code.equals("200")) {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                        builder.setTitle("Проверка существования страницы!")
-                                .setMessage("Страница существует! Сохранить данный ID?")
-                                .setIcon(R.drawable.vk)
-                                .setCancelable(false)
-                                .setNegativeButton("Да",
-                                        new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int id) {
-                                                dialog.cancel();
-                                                toast = Toast.makeText(getApplicationContext(),
-                                                        "Данные сохранены!", Toast.LENGTH_SHORT);
-                                                toast.show();
-                                            }
-                                        });
-                        AlertDialog alert = builder.create();
-                        alert.show();
+                        if (check_code.equals("200")) {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                            builder.setTitle("Проверка существования страницы!")
+                                    .setMessage("Страница существует! Сохранить данный ID?")
+                                    .setIcon(R.drawable.vk)
+                                    .setCancelable(false)
+                                    .setNegativeButton("Да",
+                                            new DialogInterface.OnClickListener() {
+                                                public void onClick(DialogInterface dialog, int id) {
+                                                    dialog.cancel();
+                                                    toast = Toast.makeText(getApplicationContext(),
+                                                            "Данные сохранены!", Toast.LENGTH_SHORT);
+                                                    toast.show();
+                                                }
+                                            });
+                            AlertDialog alert = builder.create();
+                            alert.show();
 
-                        result_save = new File_RQ().File_Entry(context, file_name, enter_idValue);
+                            result_save = new File_RQ().File_Entry(context, file_name, enter_idValue);
 
-                        if (result_save == true) {
+                            if (result_save == true) {
+                            } else {
+                                toast = Toast.makeText(getApplicationContext(),
+                                        "Данные не сохранены! Ошибка!", Toast.LENGTH_SHORT);
+                                toast.show();
+                            }
                         } else {
                             toast = Toast.makeText(getApplicationContext(),
-                                    "Данные не сохранены! Ошибка!", Toast.LENGTH_SHORT);
+                                    "Данная страница не доступна!", Toast.LENGTH_SHORT);
                             toast.show();
                         }
-                    } else {
-                        toast = Toast.makeText(getApplicationContext(),
-                                "Данная страница не доступна!", Toast.LENGTH_SHORT);
-                        toast.show();
                     }
-                }
-                @Override
-                public void onFailure(Call<List<Info>> call, Throwable t) {
-                }
-            });
+
+                    @Override
+                    public void onFailure(Call<List<Info>> call, Throwable t) {
+                    }
+                });
+            } else {
+                toast = Toast.makeText(getApplicationContext(),
+                        "Введите ID!", Toast.LENGTH_SHORT);
+                toast.show();
+            }
         } else {
-           toast = Toast.makeText(getApplicationContext(),
-                "Введите ID!", Toast.LENGTH_SHORT);
-           toast.show();
+            Toast.makeText(this, "Нет соединение с интернетом", Toast.LENGTH_LONG).show();
         }
     }
 }

@@ -29,7 +29,7 @@ public class ListTime extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //StartAppSDK.init(this, YOURAPPID, false);
+        StartAppSDK.init(this, YOURAPPID, false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
