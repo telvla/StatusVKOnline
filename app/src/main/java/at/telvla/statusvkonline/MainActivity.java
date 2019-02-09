@@ -3,9 +3,13 @@ package at.telvla.statusvkonline;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -40,7 +44,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         StartAppSDK.init(this, YOURAPPID, false);
 
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_toolbar);
+
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         context = this;
         startService(new Intent(this, PingService.class));
 
@@ -119,4 +128,21 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Нет соединение с интернетом", Toast.LENGTH_LONG).show();
         }
     }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+        /*if (id == R.id.action_settings) {
+            return true;
+        }*/
+        return super.onOptionsItemSelected(item);
+    }
+
 }

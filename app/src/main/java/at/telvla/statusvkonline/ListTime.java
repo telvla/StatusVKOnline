@@ -76,6 +76,6 @@ public class ListTime extends AppCompatActivity {
     public void onBackPressed() {
         Intent intent = new Intent(ListTime.this, MainActivity.class);
         startActivity(intent);
-        finish();
+        //finish();
     }
 }
