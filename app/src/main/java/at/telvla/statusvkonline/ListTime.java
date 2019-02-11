@@ -2,6 +2,7 @@ package at.telvla.statusvkonline;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatDelegate;
@@ -30,10 +31,17 @@ public class ListTime extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         StartAppSDK.init(this, YOURAPPID, false);
+
+        setContentView(R.layout.list_time_wrap);
+
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        /*getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.logo_vk);*/
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
-        setContentView(R.layout.activity_list_time);
+        getSupportActionBar().setHomeButtonEnabled(true);
 
         context = MyApplication.getContext();
         listView = findViewById(R.id.listView);

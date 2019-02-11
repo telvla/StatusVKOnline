@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="22dp"
     android:background="#fff"
     >
 
@@ -12,6 +13,7 @@
         android:transcriptMode="normal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp">
     </ListView>
@@ -26,13 +28,13 @@
         android:orientation="vertical"
         android:layout_gravity="center_horizontal|bottom"
         >
-
+<!--
         <com.startapp.android.publish.ads.banner.Banner
             android:id="@+id/startAppBanner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             />
-
+-->
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

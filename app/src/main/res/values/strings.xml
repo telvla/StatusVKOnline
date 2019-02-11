@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">VK Online</string>
     <string name="example">Пример id: 3234512 или durov</string>
+    <string name="textview_servis"></string>
     <string name="save_btn">ПРОВЕРИТЬ</string>
+    <string name="list_icon">List Icon</string>
     <string name="title_activity_list_time">Время посещений</string>
 </resources>

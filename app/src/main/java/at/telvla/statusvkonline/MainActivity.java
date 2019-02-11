@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -27,6 +28,7 @@ import retrofit2.Retrofit;
 
 public class MainActivity extends AppCompatActivity {
     EditText enter_id;
+    TextView textview_servis;
     String enter_idValue;
     String file_name = "id_vk";
     Boolean result_save;
@@ -53,13 +55,16 @@ public class MainActivity extends AppCompatActivity {
         context = this;
         startService(new Intent(this, PingService.class));
 
+        textview_servis = findViewById(R.id.textview_servis);
         enter_id = findViewById(R.id.enter_id);
         try {
             result_save = new File_RQ().File_Entry(context, file_list_time, "-");
-
             get_id_file = new File_RQ().File_Read(context, file_name);
             if (!get_id_file.equals("")) {
                 enter_id.setText(get_id_file);
+                textview_servis.setText("Данный id " + get_id_file + " отслеживается в фонновом режими");
+            } else {
+                textview_servis.setVisibility(View.GONE);
             }
         } catch (Exception e) {
             enter_id.setText("");
@@ -71,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
         if (new isOnline().getOnline(MyApplication.getContext()) == true) {
             enter_idValue = enter_id.getText().toString();
             if (!enter_id.getText().toString().equals("")) {
+
                 CallServer = ApiClient.getClient();
                 api = CallServer.create(API.class);
 
@@ -102,6 +108,9 @@ public class MainActivity extends AppCompatActivity {
 
                             result_save = new File_RQ().File_Entry(context, file_name, enter_idValue);
 
+                            textview_servis.setText("Данный id " + enter_idValue + " отслеживается в фонновом режими");
+                            textview_servis.setVisibility(View.VISIBLE);
+
                             if (result_save == true) {
                             } else {
                                 toast = Toast.makeText(getApplicationContext(),
@@ -132,17 +141,16 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
-        int id = item.getItemId();
-        /*if (id == R.id.action_settings) {
-            return true;
-        }*/
+        if(item.getItemId() == R.id.action_list) {
+            Intent intent = new Intent(this, ListTime.class);
+            startActivity(intent);
+        }
         return super.onOptionsItemSelected(item);
     }
-
 }
