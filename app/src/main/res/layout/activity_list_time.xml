@@ -28,13 +28,13 @@
         android:orientation="vertical"
         android:layout_gravity="center_horizontal|bottom"
         >
-<!--
+
         <com.startapp.android.publish.ads.banner.Banner
             android:id="@+id/startAppBanner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             />
--->
+
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

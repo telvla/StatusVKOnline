@@ -8,15 +8,18 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
 import com.startapp.android.publish.adsCommon.StartAppSDK;
+import com.victor.loading.rotate.RotateLoading;
 
 import java.util.List;
 
@@ -29,6 +32,7 @@ import retrofit2.Retrofit;
 public class MainActivity extends AppCompatActivity {
     EditText enter_id;
     TextView textview_servis;
+    TextView textview_simple;
     String enter_idValue;
     String file_name = "id_vk";
     Boolean result_save;
@@ -40,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     String YOURAPPID = "200214407";
     String check_code;
     String file_list_time = "file_list_time";
+    RotateLoading rotateLoading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
         context = this;
         startService(new Intent(this, PingService.class));
 
+        textview_simple = findViewById(R.id.textview_simple);
         textview_servis = findViewById(R.id.textview_servis);
         enter_id = findViewById(R.id.enter_id);
         try {
@@ -77,6 +83,11 @@ public class MainActivity extends AppCompatActivity {
             enter_idValue = enter_id.getText().toString();
             if (!enter_id.getText().toString().equals("")) {
 
+                textview_servis.setVisibility(View.GONE);
+                textview_simple.setVisibility(View.GONE);
+                rotateLoading = findViewById(R.id.rotateloading);
+                rotateLoading.start();
+
                 CallServer = ApiClient.getClient();
                 api = CallServer.create(API.class);
 
@@ -91,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
                         if (check_code.equals("200")) {
                             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                             builder.setTitle("Проверка существования страницы!")
-                                    .setMessage("Страница существует! Сохранить данный ID?")
+                                    .setMessage(Html.fromHtml("<p style='color:#000;'>Страница существует! Сохранить данный ID?</p>"))
                                     .setIcon(R.drawable.vk)
                                     .setCancelable(false)
                                     .setNegativeButton("Да",
@@ -110,6 +121,11 @@ public class MainActivity extends AppCompatActivity {
 
                             textview_servis.setText("Данный id " + enter_idValue + " отслеживается в фонновом режими");
                             textview_servis.setVisibility(View.VISIBLE);
+                            textview_simple.setVisibility(View.VISIBLE);
+
+                            if(rotateLoading.isStart()){
+                                rotateLoading.stop();
+                            }
 
                             if (result_save == true) {
                             } else {

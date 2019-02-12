@@ -1,15 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.startapp.android.publish.ads.banner.Banner
-        android:id="@+id/startAppBanner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
+
+    <LinearLayout
+        android:id="@+id/linbox"
+        android:layout_width="fill_parent"
+        android:layout_height="150dp"
+        android:layout_weight="1"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_marginTop="1dp"
+        >
+
+        <com.startapp.android.publish.ads.banner.Banner
+            android:id="@+id/startAppBanner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -23,6 +36,14 @@
         android:orientation="vertical">
 
 
+        <com.victor.loading.rotate.RotateLoading
+            android:id="@+id/rotateloading"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:loading_color="@color/colorAccent"
+            android:layout_gravity="center"/>
+
+
         <TextView
             android:id="@+id/textview_servis"
             android:layout_width="wrap_content"
@@ -32,14 +53,6 @@
             android:gravity="center"
             android:text="@string/textview_servis"
             android:textSize="14sp" />
-
-
-        <TextView
-            android:id="@+id/textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:textSize="12sp" />
 
         <EditText
             android:id="@+id/enter_id"
